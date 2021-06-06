@@ -321,6 +321,18 @@ UploadFile has the following async methods:
 
 `contents = myfile.file.read()`
 
+Full example:  
+```py
+from fastapi import FastAPI, File, UploadFile
+
+@app.post("/uploadfile/")
+async def create_upload_file(*, file: UploadFile = File(...), parent: str, description: Optional[str] = None):
+    contents = await file.read()
+    PostFile(contents,file.filename,description,parent)
+    file.close()
+    return {"status": "uploaded ok"}
+```    
+
 ### To remember while handling files 
 - Always close the file after youre done with all the proccessing
 - If you want to get all the content of the uploaded file call the read method on the file, like:  
