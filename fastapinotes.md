@@ -21,6 +21,7 @@
   - [Posting files to the api](#posting-files-to-the-api)
     - [To remember while handling files](#to-remember-while-handling-files)
   - [Getting files from api](#getting-files-from-api)
+  - [Background tasks](#background-tasks)
   
 ## Installation
 `pip install fastapi` & `pip install uvicorn` (for a web server)
@@ -354,4 +355,23 @@ app = FastAPI()
 @app.get("/")
 async def main():
     return FileResponse(some_file_path)
+```
+
+## Background tasks
+- Often we want to do some proccessing in the route handler but it would then block (like delay) the response of the route
+- To run that task in the background we can just import `BackgroundTasks` from fastapi and it will automatically set up different threads for both the task and the response, magic isn't it ✨
+```py
+from fastapi import FastAPI, BackgroundTasks
+from time import sleep
+
+app = FastAPI()
+
+def send_email(message):
+    sleep(5)
+    print('Sending email: ', message)
+
+@app.get('/')
+async def index(background_tasks: BackgroundTasks):
+    background_tasks.add_task(send_email, "Hello there.")
+    return {'result' : 'success'}
 ```
