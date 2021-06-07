@@ -20,6 +20,7 @@
   - [Handling Errors](#handling-errors)
   - [Posting files to the api](#posting-files-to-the-api)
     - [To remember while handling files](#to-remember-while-handling-files)
+  - [Getting files from api](#getting-files-from-api)
   
 ## Installation
 `pip install fastapi` & `pip install uvicorn` (for a web server)
@@ -337,3 +338,20 @@ async def create_upload_file(*, file: UploadFile = File(...), parent: str, descr
 - Always close the file after youre done with all the proccessing
 - If you want to get all the content of the uploaded file call the read method on the file, like:  
 `contents = await file.read()`
+
+## Getting files from api 
+- To return a file as a response in ur api import FileResponse  
+`from fastapi.responses import FileResponse`
+- Then pass in the path of the file to be returned to the FileResonse method
+
+```py
+from fastapi import FastAPI
+from fastapi.responses import FileResponse
+
+some_file_path = "large-video-file.mp4"
+app = FastAPI()
+
+@app.get("/")
+async def main():
+    return FileResponse(some_file_path)
+```
