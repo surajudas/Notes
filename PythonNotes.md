@@ -515,3 +515,4 @@ print(cur.fetchall())
 
 con.close()
 ```
+> Tip: Sqlite doesn't have a bool type by default so use this instead `mycol BOOLEAN NOT NULL CHECK (mycol IN (0, 1))` when you need a bool type coloumn. Here 0/1 rep False/True respectively.
