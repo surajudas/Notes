@@ -1,6 +1,8 @@
 # Misc Python notes
 - [Misc Python notes](#misc-python-notes)
   - [Tips](#tips)
+    - [Naming Conventions](#naming-conventions)
+  - [- classes should use the CapWords convention.](#--classes-should-use-the-capwords-convention)
   - [Venv](#venv)
   - [Pyinstaller](#pyinstaller)
   - [Threading](#threading)
@@ -34,6 +36,21 @@
   - You just change the encoding of the text to utf-8
 - Error: AttributeError: impartial import of random 
   - Fix: Donot name your py file random.py
+
+### Naming Conventions
+So PEP 8 tells you that:
+
+- modules (filenames) should have short, all-lowercase names, and they can contain underscores;
+- packages (directories) should have short, all-lowercase names, preferably without underscores;
+- classes should use the CapWords convention.
+---
+PEP 8 tells that names should be short; this following gives a good overview of what to take into account when creating variable names, which also apply to other names (for classes, packages, etc.):
+
+- variable names are not full descriptors;
+- put details in comments;
+- too specific name might mean too specific code;
+- keep short scopes for quick lookup;
+- spend time thinking about readability.
 
 ## Venv
 - Use venv to isolate packages from the main py installation when doing projects
