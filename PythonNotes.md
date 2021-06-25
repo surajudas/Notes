@@ -522,7 +522,7 @@ con.close()
 ```sql
 CREATE TABLE table_name(
     ...,
-    column_name type UNIQUE,
+    column_name UNIQUE,
     ...
 );
 ```
