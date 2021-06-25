@@ -515,4 +515,20 @@ print(cur.fetchall())
 
 con.close()
 ```
-> Tip: Sqlite doesn't have a bool type by default so use this instead `mycol BOOLEAN NOT NULL CHECK (mycol IN (0, 1))` when you need a bool type coloumn. Here 0/1 rep False/True respectively.
+> Tip: 
+> - Sqlite doesn't have a bool type by default so use this instead `mycol BOOLEAN NOT NULL CHECK (mycol IN (0, 1))` when you need a bool type coloumn. Here 0/1 rep False/True respectively.
+> - A `UNIQUE` constraint ensures all values in a column or a group of columns are distinct from one another or unique.
+>   - The following shows how to define a UNIQUE constraint for a column at the column level and a UNIQUE constraint for multiple columns resp:
+```sql
+CREATE TABLE table_name(
+    ...,
+    column_name type UNIQUE,
+    ...
+);
+```
+```sql
+CREATE TABLE table_name(
+    ...,
+    UNIQUE(column_name1,column_name2,...)
+);
+``` 
