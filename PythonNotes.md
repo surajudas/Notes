@@ -2,7 +2,6 @@
 - [Misc Python notes](#misc-python-notes)
   - [Tips](#tips)
     - [Naming Conventions](#naming-conventions)
-  - [- classes should use the CapWords convention.](#--classes-should-use-the-capwords-convention)
   - [Venv](#venv)
   - [Pyinstaller](#pyinstaller)
   - [Threading](#threading)
@@ -29,6 +28,11 @@
     - [Status codes](#status-codes)
   - [SqilteDB](#sqiltedb)
     - [Best practices](#best-practices)
+  - [Lambda, Map and filter](#lambda-map-and-filter)
+    - [Lambda](#lambda)
+    - [Map](#map)
+    - [Filter](#filter)
+  - [Genrators in python](#genrators-in-python)
 
 ## Tips  
 - Error: UnicodeEncodeError: 'charmap' codec can't encode character '\u2640' in position 23: character maps to <undefined> 
@@ -43,6 +47,7 @@ So PEP 8 tells you that:
 - modules (filenames) should have short, all-lowercase names, and they can contain underscores;
 - packages (directories) should have short, all-lowercase names, preferably without underscores;
 - classes should use the CapWords convention.
+
 ---
 PEP 8 tells that names should be short; this following gives a good overview of what to take into account when creating variable names, which also apply to other names (for classes, packages, etc.):
 
@@ -532,3 +537,63 @@ CREATE TABLE table_name(
     UNIQUE(column_name1,column_name2,...)
 );
 ``` 
+
+## Lambda, Map and filter
+
+### Lambda
+- Lambda functions add grace to your python programs by making it easy to write functions in one line and when the only do a single thing.
+- You can only execute one expression inside a lambda function.
+```py
+# Normal function
+def add(x,y):
+    return x+y
+
+# Lambda function
+lambda x,y: x+y
+
+# Can be assigned to a variable
+addout = lambda x,y: x+y
+addout(3,5) # Gives 8
+```
+
+### Map
+- Map method allows us to send all elements of an iterable through a function without using loops
+- map() is useful when you need to apply a transformation function to each item in an iterable and transform them into a new iterable.
+Basic syntax: `map(function, iterable[, iterable1, iterable2,..., iterableN])`
+- Now, map() returns a map object, which is an iterator that yields items on demand.   
+That’s why you need to call list() to create the desired list object or next() to get individual values.
+```py
+nums = [1,2,3,4]
+sqrs = map(lambda x: x**2, nums)
+print(next(sqrs))
+# Output: 1
+# OR
+sqrslist = list(sqrs)
+print(sqrslist)
+# Output: [4,9,26]
+```
+- If you supply multiple iterables to map(), then the transformation function must take as many arguments as iterables you pass in. Each iteration of map() will pass one value from each iterable as an argument to function. The iteration stops at the end of the shortest iterable.
+```py
+first_it = [1, 2, 3]
+second_it = [4, 5, 6, 7]
+list(map(pow, first_it, second_it))
+# [1, 32, 729], the map stopped at 3 since it was the shortest iteratable
+```
+
+### Filter
+- The filter() method filters the given sequence with the help of a function that tests each element in the sequence to be true or not.
+```py
+# a list contains both even and odd numbers.
+seq = [0, 1, 2, 3, 5, 8, 13]
+
+# result contains odd numbers of the list
+result = filter(lambda x: x % 2 != 0, seq)
+print(list(result))
+
+# result contains even numbers of the list
+result = filter(lambda x: x % 2 == 0, seq)
+print(list(result))
+```
+
+## Genrators in python
+todo ✔
