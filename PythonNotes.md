@@ -40,6 +40,9 @@
   - You just change the encoding of the text to utf-8
 - Error: AttributeError: impartial import of random 
   - Fix: Donot name your py file random.py
+- Error: sqlite3.ProgrammingError: SQLite objects created in a thread can only be used in that same thread.
+  - Fix: In your sqlite3.connect() add check_same_thread=False
+  - Note: Make sure that only one write operation is done at a time
 
 ### Naming Conventions
 So PEP 8 tells you that:
@@ -522,6 +525,11 @@ con.close()
 ```
 > Tip: 
 > - Sqlite doesn't have a bool type by default so use this instead `mycol BOOLEAN NOT NULL CHECK (mycol IN (0, 1))` when you need a bool type coloumn. Here 0/1 rep False/True respectively.
+```
+cur.execute('''CREATE TABLE animes 
+    (id INTEGER PRIMARY KEY, date text, name text NOT NULL UNIQUE, ep int, wstate BOOLEAN NOT NULL CHECK (wstate IN (0, 1)), online BOOLEAN NOT NULL CHECK (online IN (0, 1)));''')
+```
+
 > - A `UNIQUE` constraint ensures all values in a column or a group of columns are distinct from one another or unique.
 >   - The following shows how to define a UNIQUE constraint for a column at the column level and a UNIQUE constraint for multiple columns resp:
 ```sql
