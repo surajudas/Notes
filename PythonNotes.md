@@ -2,6 +2,9 @@
 - [Misc Python notes](#misc-python-notes)
   - [Tips](#tips)
     - [Naming Conventions](#naming-conventions)
+  - [Standard library](#standard-library)
+    - [Zip()](#zip)
+    - [Packing and Unpacking variables](#packing-and-unpacking-variables)
   - [Venv](#venv)
   - [Pyinstaller](#pyinstaller)
   - [Threading](#threading)
@@ -34,7 +37,8 @@
     - [Filter](#filter)
   - [Genrators in python](#genrators-in-python)
 
-## Tips  
+## Tips
+- Use [pyp](https://www.pypy.org/) when doing memory intensive tasks (web frameworks, graphics, etc) or need speed (optimisation)  
 - Error: UnicodeEncodeError: 'charmap' codec can't encode character '\u2640' in position 23: character maps to <undefined> 
   - Fix: with open("mangas.txt",'w',encoding='utf-8') as f:
   - You just change the encoding of the text to utf-8
@@ -59,6 +63,38 @@ PEP 8 tells that names should be short; this following gives a good overview of 
 - too specific name might mean too specific code;
 - keep short scopes for quick lookup;
 - spend time thinking about readability.
+
+## Standard library
+### Zip()
+- Returns an iterator of tuples, where the i-th tuple contains the i-th element from each of the argument sequences or iterables. The iterator stops when the shortest input iterable is exhausted. 
+- With a single iterable argument, it returns an iterator of 1-tuples. With no arguments, it returns an empty iterator.
+```
+>>> x = [1, 2, 3]
+>>> y = [4, 5, 6]
+>>> zipped = zip(x, y) # zip() Creates a iterator
+>>> list(zipped) # Iterator converted to list
+[(1, 4), (2, 5), (3, 6)]
+``` 
+### Packing and Unpacking variables
+- You can assign multiple values to multiple variables by separating variables and values with commas `,`.
+- values can be of diff types
+`a, b, c = 1, 2, 3`
+- If there is one variable on the left side, it is assigned as a tuple.
+`a = 1, 2, 3`
+- If the number of variables on the left and the number of values on the right do not match, a ValueError will occur, but you can assign the rest as a list by appending * to the variable name.
+```py
+# a, b = 100, 200, 300
+# ValueError: too many values to unpack (expected 2)
+
+# a, b, c = 100, 200
+# ValueError: not enough values to unpack (expected 3, got 2)
+
+a, *b = 100, 200, 300
+
+# a -> 100, b -> (200, 300) 
+```
+- You can assign the same value to multiple variables by using = consecutively.
+`a = b = 1` 
 
 ## Venv
 - Use venv to isolate packages from the main py installation when doing projects

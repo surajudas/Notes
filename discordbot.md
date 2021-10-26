@@ -1,0 +1,1 @@
+# Notes on making a discord bot from scratch
