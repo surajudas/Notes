@@ -1,6 +1,7 @@
 # Javascript Notes
 to learn: 
 - [ ] dom manip
+- [ ] async
 - [ ] api stuff
 - [ ] React
 
@@ -11,6 +12,7 @@ to learn:
 ## Bestpractices
 - If your writing js in the html file itself then write it in the bottom most part of the body tag, that way the html content is loaded first and the script proccessed after that plus we actually need some elements to work(manip) with first.
 - Use Camel notation to name identifiers eg. firstName
+- Whenever in doubt use [MDN Docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 
 ## Basics
 - all **statements** need to be terminated by `;` in js
@@ -170,26 +172,6 @@ favThings[2] = [180, 360];
 console.log(favThings.length)
 ```
 
-## Functions
-- A function in js is defined by using the function keyword + indentifier + (parameters in bracket) + {function body in curly braces}
-```js
-function calcDaysRem(startDate, endDate) {
-    daysRem = endDate - startDate + 1;
-    console.log(daysRem);
-}
-
-calcDaysRem(2,10);
-```
-
-- Values can be retured using the return keyword
-
-```js
-function sqaure(num) {
-    return num * num;
-}
-console.log(square(1230));
-```
-
 ## Loops
 ### For loop
 - Loops in js are a bit like in c/c++ I think
@@ -264,4 +246,139 @@ if (person.socialPoints < 0) {
 }
 ```
 
-### 
+### Ternary operator
+- Shorthand if statement
+- Used a lot to assign variables based on a condition
+```js
+let scoialScore = 200;
+// ternary operator
+let judge = (socialScore < 0) ? 'John Xina' : 'Randee Ortan'
+
+console.log(judge)
+// Randee Ortan
+```
+- let `variable` = `if condition` `?`(then) `value1` `:`(or) `value2`
+
+### Switch
+- Evaluates a variable or statement and has corresponding cases, if a case is true then its body is executed. A default case has to be there.
+```js
+let judge = (person.socialPoints < 0) ? 'John Xina' : 'Randee Ortan'
+
+// Switches
+switch(judge) {
+    case 'John Xina':
+        console.log('Why cant anybody see me?');
+        break;
+    default:
+        console.log('Unga Bunga');
+        break;
+}
+```
+
+## Functions
+- A piece of code that can be called multiple times from code. May or may not return a value
+```js
+function add5(num=9) {
+    return num + 5;
+}
+// default value is 9 if no value is given
+console.log(add5()); // 14
+console.log(add5(12)); // 17
+```
+
+### Arrow functions
+- Arrow functions are a handy way to write one liner functions.
+```js
+const addNums = (num1 ,num2) => num1 + num2
+console.log(addNums(1, 3)) 
+```
+
+## OOP with js
+
+## Function Constructors
+- This is the outdated way to make classes (ES5)
+- The identifier always start with a **capital letter**
+- The variables that are needed to instantiate a class are passed as parameters to the function constructor
+- The Classes' attributes can be defined by using the `this.<attribute>` keyword 
+- The methods of the class can be defined both inside the function constructor or outside by using the objects'         `prototype` property
+```js
+// function constructor
+function Person(firstName, lastName, dob, hobbies) {
+    this.name = {'first':firstName, 
+    'last':lastName
+    };
+    this.dob = new Date(dob); // year, month, date
+    this.hobbies = hobbies;
+}
+Person.prototype.daysToLive = function () {
+    return 80 - (2021 - this.dob.getFullYear());
+}
+
+let person1 = new Person('Kala', 'Kawua', '2001, 2, 4', ['singing', 'wrestling'])
+console.log(`you have ${person1.daysToLive()} years to live`)
+```
+
+### Classes
+- Classes were introduced in ES6 and work in the same way as many other languages
+- a class is defined by the `class` keyword, the main syntax is something like:
+```js
+class nameOfTheClass {
+    constructor(parameters, a, b, c,..) {
+        this.attribute1 = a;
+        this.attribute2 = [b, c];
+        .
+        .
+    }
+    someMethod(params) {
+        do something;
+    }
+} 
+example = nameOfTheClass(a, b, c,..)
+example.someMethod(params)
+```
+- The constructor method of the class holds the attributes of the class
+- Methods for the class can be defined in the class itself
+- Example:
+```js
+// class
+class Person{
+    constructor (firstName, lastName, dob, hobbies){
+        this.name = {'first':firstName, 
+        'last':lastName
+        };
+        this.dob = new Date(dob); // year, month, date
+        this.hobbies = hobbies;
+    }
+    daysToLive() {
+        return 80 - (2021 - this.dob.getFullYear());
+    }
+    fullName() {
+        return `${this.name.first} ${this.name.last}`
+    }
+}
+```
+
+>Note: The methods of the class are added to the prototype property of the class automatically
+
+## The DOM
+### The window
+- A global variable, `window`, representing the window in which the script is running, is exposed to JavaScript code.
+- In a tabbed browser, each tab is represented by its own Window object; the global window seen by JavaScript code running within a given tab always represents the tab in which the code is running.
+- The window object provides methods and properties that should be globally available to js
+
+### Selectors
+- To select elements from the document we need to call the singls/multiple selector methdos on the `document` object
+- Single selector methods:
+  - `document.getElementById()`: gets html element by its id
+  - `document.querySelector()`: gets any single html element that matches search query. Pretty similar to jquery.
+- Multiple selector methods:
+  - `document.getElementsByClassName()`: Returns a html collection object of all elements with the given class, the object has to be converted to an array before using array methods on tho.
+  - `document.querySelectorAll()`: Returns a node list of all matching elements, you can use array methods on it without any conversion.
+```js
+const listItems = document.querySelectorAll('.item');
+listItems.forEach((item) => console.log(item.textContent))
+```
+>Note: Use `querySelector` & `querySelectorAll` most of the time
+
+### Doom Manip
+- 
