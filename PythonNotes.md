@@ -5,6 +5,8 @@
   - [Standard library](#standard-library)
     - [Zip()](#zip)
     - [Packing and Unpacking variables](#packing-and-unpacking-variables)
+    - [Environment variables](#environment-variables)
+      - [With env files](#with-env-files)
   - [Venv](#venv)
   - [Pyinstaller](#pyinstaller)
   - [Threading](#threading)
@@ -38,7 +40,8 @@
   - [Genrators in python](#genrators-in-python)
 
 ## Tips
-- Use [pyp](https://www.pypy.org/) when doing memory intensive tasks (web frameworks, graphics, etc) or need speed (optimisation)  
+- Use [pyp](https://www.pypy.org/) when doing memory intensive tasks (web frameworks, graphics, etc) or need speed (optimisation)
+- Use type hints for clarity of code and speed too maybe  
 - Error: UnicodeEncodeError: 'charmap' codec can't encode character '\u2640' in position 23: character maps to <undefined> 
   - Fix: with open("mangas.txt",'w',encoding='utf-8') as f:
   - You just change the encoding of the text to utf-8
@@ -94,7 +97,20 @@ a, *b = 100, 200, 300
 # a -> 100, b -> (200, 300) 
 ```
 - You can assign the same value to multiple variables by using = consecutively.
-`a = b = 1` 
+`a = b = 1`
+
+### Environment variables
+#### With env files
+- A .env file is a text file in which the variables are defined, one per line. The format of a .env file is exactly the same under all operating systems, so .env files make working with environment variables uniform across all platforms. 
+example `.env` file: `BOT_TOKEN="sapdopsoad"`
+- The python-dotenv package allows a Python application to import variables defined in a .env file into the environment. You can install python-dotenv in your virtual environment using pip: `pip install python-dotenv`
+- the `load_dotenv` function loads all the variables into the python enivronment
+```py
+>>> from dotenv import load_dotenv
+>>> load_dotenv()
+```
+- then get the env variable using  
+`os.getenv('BOT_TOKEN')`
 
 ## Venv
 - Use venv to isolate packages from the main py installation when doing projects
@@ -452,7 +468,7 @@ con = sqlite3.connect('example.db')
 ```py
 #Create the connection outside of the function, and pass it into the function, or create a shared memory connection:
 
-db = sqlite3.connect("file::memory:?cache=shared")
+db = sqlite3.connect("file:cachedb?mode=memory&cache=shared")
 
 #However, the database will be erased when the last connection is deleted from memory; in your case that'll be each time the function ends.
 #Rather than explicitly call db.commit(), just use the database connection as a context manager:
@@ -460,7 +476,7 @@ db = sqlite3.connect("file::memory:?cache=shared")
 try:
     with db:
         cur = db.cursor()
-        # massage `args` as needed
+        # change `args` as needed
         cur.execute(*args)
         return True
 except Exception as why:

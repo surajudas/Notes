@@ -29,6 +29,7 @@
 ## Basic Structure
 - imports `from fastapi import FastAPI`
 - Instantiate the app instance `app = FastAPI()`
+- Start the app with `uvicorn main:app --reload` in console
 
 ### Routing 
 - Routes in fastapi are done by using decorators with that routes corresponding http method eg. `@app.get('/'), @app.post('/')`

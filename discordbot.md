@@ -5,6 +5,7 @@
 - Tutorials :- [lucas](https://www.youtube.com/watch?v=nW8c7vT6Hl4&list=PLW3GfRiBCHOhfVoiDZpSz8SM_HybXRPzZ&index=1)
 - Different available Events :- [Event rerence](https://discordpy.readthedocs.io/en/stable/api.html#event-reference)
 - Intents :- [intents](https://discordpy.readthedocs.io/en/stable/api.html#intents)
+- Use '|| {link_to_file ||' for spoiler tags
 
 ## Imports
 ```py

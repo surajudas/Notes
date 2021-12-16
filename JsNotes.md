@@ -5,6 +5,17 @@ to learn:
 - [ ] api stuff
 - [ ] React
 
+- Things to learn before a framework
+  - Javascript Fundamental
+  - Module
+  - Classe
+  - Arrow function
+  - Promises / Asynchronus request
+  - Destructurin
+  - Concept of components & stat
+  - Spread operator
+  - High order array functions
+
 ## Intro
 - Javascript is a dynamic lang that runs on both browsers(Spidermonkey and v8) and also outside the browser in the node runtime environment
 - Standardised by ECMA and standard is called ECMAscript
@@ -88,6 +99,20 @@ let newText = text.replace("Mcdonalds", "Dominos");
 ```
 - string.toUpperCase() and string.toLowerCase()
 - string.trim() => trims off leading and ending whitespaces
+- The isNaN() function determines whether a value is NaN or not. The argument is converted to number first so be careful of that
+```js
+let ex1 = '123';
+let ex2 = 'def not a number';
+
+function checkIfNum(x) {if(isNaN(x)) {
+    console.log('Hey this is not a number');
+} else {
+    console.log('this is number');
+}}
+
+checkIfNum(ex1);
+checkIfNum(ex2);
+```
 
 #### Template Strings
 ```js
@@ -381,4 +406,88 @@ listItems.forEach((item) => console.log(item.textContent))
 >Note: Use `querySelector` & `querySelectorAll` most of the time
 
 ### Doom Manip
-- 
+- Various methods can be called on the selected document elements
+- Examples:
+
+```js
+const list = document.querySelector('.items'); // selecting a ul list
+list.remove(); // removes the whole list
+list.firstElementChild.textContent = 'HEHEHEHHEHEHE'; // changes the text of the first element child of the list
+list.children[1].textContent = 'Muhauhauhua'; // first gotta get a node list of all the children of the ul list then access any property of that child
+list.lastElementChild.innerHTML = '<a href="https://www.example.com">clikity clak</a>'
+
+const btn = document.querySelector('.btn');
+btn.style.background = 'blue'; // changing the color of the btn to be blue
+```
+- You can use `document.createElement('<name of the tag>')` to create elements out of nowhere
+
+### Events
+- Events are fired to notify code of "interesting changes" that may affect code execution. These can arise from user interactions such as using a mouse or resizing a window, changes in the state of the underlying environment (e.g. low battery or media events from the operating system), and other causes. (from mdn docs)
+- You add an event listener to the element you want to observe and give it to things: the type of event to look out for and a callback function
+- The callback function's first parameter will be the event paratmeter often denoted by `e`. `e` is an object that has properties and methods pretaining to the element that is being observed
+- there are many diff event types and can be found in the mdn docs
+```js
+const btn = document.querySelector('.btn');
+btn.addEventListener('click', (e) => {
+    e.preventDefault(); // prevents default form submit behaviour
+    body = document.querySelector('body')
+    body.classList.add('bg-dark')
+})
+```
+
+### Misc stuff
+- `setTimeout(<function>, <time>)` - executes given funciton after given time in miliseconds
+- I seem to forget about making the variables actually variables by declaring them with let and const, this is likely a habit from using python so much.
+- The `onfocus` property can be set to run a function when a specific element is in focus
+```js
+let input = document.querySelector('input');
+
+input.onblur = inputBlur;
+input.onfocus = inputFocus;
+
+function inputBlur() {
+  input.value = 'Focus has been lost';
+}
+
+function inputFocus() {
+  input.value = 'Focus is here';
+}
+```
+
+
+### Examples
+1. Simple form
+```js
+const loginForm = document.querySelector('#my-form');
+const nameInput = document.querySelector('#name');
+const emailInput = document.querySelector('#email');
+const msg = document.querySelector('.msg');
+const users = document.querySelector('#users');
+
+loginForm.addEventListener('submit', submitfn);
+
+function submitfn(e) {
+    e.preventDefault();
+    if (nameInput.value === '' || emailInput.value === '') {
+        msg.classList.add('error');
+        msg.innerHTML = 'Enter your name and email!';
+
+        setTimeout(() => msg.remove(), 3000);
+    } else {
+        const li = document.createElement('li');
+        li.appendChild(document.createTextNode(`${nameInput.value} : ${emailInput.value}`));
+        users.appendChild(li);
+    }
+}
+```
+
+2. ReGex can be used in js by simply creating a regex object and then using this objects' methods. A regex object can be created in 2 ways: 
+    - `let re = \vanilla\d\`
+    - `let re = new RegExp('^[0-9%^*()=+\/.-]*$');`
+
+3. Whitespaces can be blocked in input boxes like so:
+```js
+// Stopping the use of space and tab keys
+    var k = event ? event.which : window.event.keyCode;
+    if (k == 32) return false;
+```
