@@ -435,6 +435,71 @@ btn.addEventListener('click', (e) => {
 })
 ```
 
+# NPM basics
+Npm is 'the' package manager that comes installed with nodejs, similar to gems in ruby and pip in python
+
+## The package.json file
+- It is a manifest file that holds info related to the project such as its name, author, version, etc. But the most imp thing it holds is the dependencies that the project uses.
+- You can also create npm scripts in your package.json file
+- It can be really easily created with `npm init` which will start a input dailouge and generate the json file at the end. 
+- This dialouge can be skipped by adding the `-y` or `--yes` flag to the command, like `npm init -y`. Now all the default options will be selected and no time is wasted.
+  - The default options of npm can be set by running `npm set <property-name>`, eg: `npm set package-author-name suraj` and `npm set package-license MIT`
+  - To see what are the current defaults use `npm get <property-name>`
+- The `'main'` object in the package file indicates which js file is the main js file in the project.
+
+## Installing a module
+- These days locally installed modules are automatically added to the package.json file.
+- To install a specific version use `npm install <package>@version` eg. `npm install lodash@17.4.3`
+- The installed module can then be used in your js files using 2 methods: 
+  - Using the `require` method and assigning the imported module to a variable
+    - Eg. `const _ = require('lodash')` here `_` is the name of the variables that points to the object imported, and can be anything u wan, in lodash's case the convention is to use `_`.
+    - Then any method the module has can be called like normal eg. `_.each(numbersArray, (number) => console.log(number))`
+  - The other way is to use the import statement at the top of your main js file
+```js
+import beeper from 'beeper';
+
+await beeper();
+// beep one time
+
+await beeper(3);
+// beep three times
+
+await beeper('****-*-*');
+// beep, beep, beep, beep, pause, beep, pause, beep
+```
+
+### Dev dependencies
+- These modules are used mainly in the development process and normally not needed for production
+- Basically stuff that helps out in the development by compiling something or automating some things, etc
+- like for example gulp, gh-pages,...
+- They are specified by the `-dev` flag
+- The installed dev dependencies are added in the package file under `devDependencies` key
+- You can choose not to install the dev dependencies when you are setting up someone else's project by doing `npm install --production`
+
+## Uninstallign dependencies
+- Alisases: `npm uninstall <package>`, `npm remove <package>`, `npm rm <package>`
+- to remove local packages use `npm rm <package>`, to remove dev ones use `npm rm <package> -dev`, for global ones `npm rm <package> -g`
+
+## Updating packages
+- use `npm update <package>`
+
+## Global modules
+- They can be installed by using the `-g` flag eg. `npm install nodemon -g`
+- Since its installed globally the installed module is not going to show up in the package.json file
+- The install location of the global modules can be checked with `npm root -g`
+
+## List modules
+- Use `npm list --depth 0`
+
+## Npm Scripts
+- Alias kinda commands can be added to the project by adding them under the `scripts` key
+- Some special scripts include `start`, `test` and some others
+  - The start script is useful since even in diff projects the npm start command stays the same and even if you rename your main js file the start command is the same.
+  - Platforms like heroku look for your start script to run your project
+  - It can hold anything like `'start': 'node index.js'` or `'start': 'live-server'`
+- Other scripts need to when used in the command line need to be used with `npm run` command.
+  - Eg. under `'scripts'`: `'dev'`: `'live-server'`
+
 ### Misc stuff
 - `setTimeout(<function>, <time>)` - executes given funciton after given time in miliseconds
 - I seem to forget about making the variables actually variables by declaring them with let and const, this is likely a habit from using python so much.
