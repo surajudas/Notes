@@ -338,3 +338,29 @@ const [toggleTasks, setToggleTasks] = useState(
 // in a Header component
 // toggleTasks is the state variable
 <Button text={`${toggleTasks ? 'Close' : 'Add'}`} bgColor={`${toggleTasks ? 'tomato' : 'steelblue'}`} />
+```
+
+## Building for deployment
+- `npm run build` creates a build version of your app in the `build/` directory
+- To deploy it to web servers just push the build folder
+
+### Deploying to github pages
+1. Create an empty repo on github
+2. install gh-pages as a dev dependency
+`npm install gh-pages --save-dev`
+3. In your package.json file add the following entry on the top level (not part of any other node)
+`"homepage": "https://{username}.github.io/{repo-name}"`
+4. In the existing scripts property, add a predeploy property and a deploy property, each having the values shown below:
+```js
+"scripts": {
+  //...
+  "predeploy": "npm run build",
+  "deploy": "gh-pages -d build"
+}
+```
+5. Initialise the git repo ala `git init` 
+6. Add your remote `git remote add origin <https://link to repo>`
+7. Build your app (`npm run deploy`), the extra stuff like creating a gh-pages branch, commiting the changes to gh-pages,.. are automatically done by the package
+8. You can then commit your source code normally to the master branch `add -> commmit -> push origin master`
+
+> Note: Don't create a repo in your react app before depoloying with the gh-pages package otherwise it creates permission errors.
