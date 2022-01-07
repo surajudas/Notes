@@ -284,6 +284,13 @@ console.log(judge)
 ```
 - let `variable` = `if condition` `?`(then) `value1` `:`(or) `value2`
 
+- `&&` can be used if there's no else statement needed
+
+```js
+let socialScore = 100;
+console.log(socialScore > 0 && 'Ahhhhhhhhhhh')
+```
+
 ### Switch
 - Evaluates a variable or statement and has corresponding cases, if a case is true then its body is executed. A default case has to be there.
 ```js
