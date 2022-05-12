@@ -340,6 +340,55 @@ const [toggleTasks, setToggleTasks] = useState(
 <Button text={`${toggleTasks ? 'Close' : 'Add'}`} bgColor={`${toggleTasks ? 'tomato' : 'steelblue'}`} />
 ```
 
+## Adding Static files to components
+- Create a `assets` folder inside your src directory
+- put your files in the assets folder
+- import the files inside your js file
+```js
+import emoji from './assets/crying-svgrepo-com.svg'
+```
+- use them ~
+```js
+<img src={emoji} alt='spinning-crying-emoji' className='animate-spin inline w-5'/>
+```
+
+## Components with children
+- In addition to the props that you can add to your components, React also creates certain props for your components automatically.
+- One such prop is called children. When you render a component, the children prop will automatically be passed whatever content comes between the opening and closing tags for that component. This is helpful when you want to create a component that wraps some generic content.
+- You can think of this concept in a frame and picture context, the frame is the main component and the picture its children prop.
+  - this will be implemented as such
+```js
+// in frame.js
+import React from 'react'
+
+const Frame = ({ children }) => {
+  return (
+    <div>
+      <h1>This is the page title</h1>
+      { children }
+    </div>
+  )
+}
+
+export default Frame
+```
+
+```js
+// in picture.js
+import React from 'react'
+import Frame from '../components/frame'
+
+const GalleryPage = () => {
+  return (
+    <Frame>
+      <img src='' />
+    </Frame>
+  )
+}
+
+export default GalleryPage
+```
+
 ## Building for deployment
 - `npm run build` creates a build version of your app in the `build/` directory
 - To deploy it to web servers just push the build folder
